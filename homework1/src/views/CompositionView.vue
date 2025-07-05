@@ -5,6 +5,9 @@
       <PageAside :is-dark-theme="isDarkTheme" />
       <div class="content">
         <p>Composition API</p>
+        <UserList />
+        <hr />
+        <PostList />
       </div>
     </section>
     <PageFooter :is-dark-theme="isDarkTheme" />
@@ -16,6 +19,8 @@ import PageFooter from '@/components/PageFooter.vue';
 import PageHeader from '@/components/PageHeader.vue';
 import PageAside from '@/components/PageAside.vue';
 import { ref } from 'vue';
+import UserList from '@/components/UserList.vue';
+import PostList from '@/components/PostList.vue';
 
 // реактивная переменная темы
 const isDarkTheme = ref(false);
