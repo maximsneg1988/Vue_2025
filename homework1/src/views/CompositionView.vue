@@ -8,6 +8,8 @@
         <UserList />
         <hr />
         <PostList />
+        <hr />
+        <UserForm />
       </div>
     </section>
     <PageFooter :is-dark-theme="isDarkTheme" />
@@ -21,6 +23,7 @@ import PageAside from '@/components/PageAside.vue';
 import { ref } from 'vue';
 import UserList from '@/components/UserList.vue';
 import PostList from '@/components/PostList.vue';
+import UserForm from '@/components/UserForm.vue';
 
 // реактивная переменная темы
 const isDarkTheme = ref(false);
@@ -31,7 +34,7 @@ function toggleTheme() {
 }
 </script>
 
-<style scoped>
+<style lang="scss" scoped>
 :root {
   --bg-color: #ffffff;
   --text-color: #333333;
