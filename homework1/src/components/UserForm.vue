@@ -98,6 +98,13 @@ async function handleSubmit() {
     if (!res.ok) throw new Error('Ошибка сети');
 
     status.value = 'Данные успешно отправлены!';
+
+    lastName.value = '';
+    firstName.value = '';
+    phone.value = '';
+    email.value = '';
+    consent.value = false;
+    errors.value = {};
   } catch (e) {
     status.value = 'Ошибка отправки. Попробуйте ещё раз.';
   } finally {
