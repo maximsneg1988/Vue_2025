@@ -1,4 +1,3 @@
-/* color palette from <https://github.com/vuejs/theme> */
 :root {
   --vt-c-white: #ffffff;
   --vt-c-white-soft: #f8f8f8;
@@ -33,6 +32,10 @@
   --color-heading: var(--vt-c-text-light-1);
   --color-text: var(--vt-c-text-light-1);
 
+  /* ✅ Добавлены переменные для хедера и футера */
+  --header-bg: rgb(204, 138, 15);
+  --footer-bg: rgb(204, 138, 15);
+
   --section-gap: 160px;
 }
 
@@ -48,14 +51,6 @@
     --color-heading: var(--vt-c-text-dark-1);
     --color-text: var(--vt-c-text-dark-2);
   }
-}
-
-*,
-*::before,
-*::after {
-  box-sizing: border-box;
-  margin: 0;
-  font-weight: normal;
 }
 
 body {
@@ -83,4 +78,34 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* ✅ Светлая тема вручную */
+body.light-theme {
+  --color-background: #ffffff;
+  --color-background-soft: #f8f8f8;
+  --color-text: #2c3e50;
+
+  --header-bg: orange;
+  --footer-bg: orange;
+}
+
+/* ✅ Тёмная тема вручную */
+body.dark-theme {
+  --color-background: #181818;
+  --color-background-soft: #222222;
+  --color-text: #eeeeee;
+
+  --header-bg: #2a2a2a;
+  --aside-bg: #2a2a2a;
+  --footer-bg: #2a2a2a;
+  --form-bg: #2a2a2a;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  font-weight: normal;
 }

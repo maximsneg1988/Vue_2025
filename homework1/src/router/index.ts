@@ -1,19 +1,55 @@
+import { createRouter, createWebHistory } from 'vue-router';
 import CompositionView from '@/views/CompositionView.vue';
 import OptionsView from '@/views/OptionsView.vue';
-import { createRouter, createWebHistory } from 'vue-router';
+import LoginView from '@/views/LoginView.vue';
+import MainLayout from '@/layouts/MainLayout.vue';
+import AuthLayout from '@/layouts/AuthLayout.vue';
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
   routes: [
+    // Редирект с корня на Composition API страницу
     {
-      path: '/options',
-      name: 'options',
-      component: OptionsView,
+      path: '/',
+      redirect: '/composition',
     },
     {
       path: '/composition',
-      name: 'composition',
-      component: CompositionView,
+      component: MainLayout,
+      children: [
+        {
+          path: '',
+          name: 'composition',
+          component: CompositionView,
+        },
+      ],
+    },
+    {
+      path: '/options',
+      component: MainLayout,
+      children: [
+        {
+          path: '',
+          name: 'options',
+          component: OptionsView,
+        },
+      ],
+    },
+    {
+      path: '/login',
+      component: AuthLayout,
+      children: [
+        {
+          path: '',
+          name: 'login',
+          component: LoginView,
+        },
+      ],
+    },
+    // Обработка несуществующих путей
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/composition',
     },
     // {
     // path: '/about',

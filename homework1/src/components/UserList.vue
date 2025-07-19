@@ -23,6 +23,7 @@ function toggleShowAll() {
 <style scoped>
 .toggle-btn {
   margin-top: 10px;
+  margin-bottom: 10px;
   padding: 8px 16px;
   font-size: 14px;
   border: none;
