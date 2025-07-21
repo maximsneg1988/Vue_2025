@@ -1,75 +1,95 @@
 <template>
   <header class="header">
-    <h1>Header</h1>
+    <h1>Моё приложение</h1>
 
     <nav class="nav">
-      <router-link to="/composition" active-class="active-link">Composition</router-link>
-      <router-link to="/options" active-class="active-link">Options</router-link>
-      <router-link to="/login" active-class="active-link">Login</router-link>
-    </nav>
+      <router-link v-if="authStore.isAuthenticated" to="/composition">Composition</router-link>
+      <router-link v-if="authStore.isAuthenticated" to="/options">Options</router-link>
+      <router-link v-if="!authStore.isAuthenticated" to="/login">Login</router-link>
 
-    <button @click="$emit('toggle-theme')" class="theme-toggle">
-      {{ themeButtonText }}
-    </button>
+      <button @click="toggleTheme" class="btn">
+        {{ isDarkTheme ? '🌞 Светлая тема' : '🌙 Тёмная тема' }}
+      </button>
+
+      <button v-if="authStore.isAuthenticated" @click="handleLogout" class="btn logout">
+        Выйти
+      </button>
+    </nav>
   </header>
 </template>
 
-<script lang="ts">
-import { defineComponent } from 'vue';
+<script setup lang="ts">
+import { computed } from 'vue';
+import { useRouter } from 'vue-router';
+import { useThemeStore } from '@/stores/useThemeStore';
+import { useAuthStore } from '@/stores/useAuthStore';
 
-export default defineComponent({
-  props: {
-    isDarkTheme: {
-      type: Boolean,
-      default: false,
-    },
-  },
-  computed: {
-    themeButtonText() {
-      return this.isDarkTheme ? '🌞 Светлая тема' : '🌙 Тёмная тема';
-    },
-  },
-  emits: ['toggle-theme'],
-});
+const themeStore = useThemeStore();
+const authStore = useAuthStore();
+const router = useRouter();
+
+const isDarkTheme = computed(() => themeStore.isDarkTheme);
+const toggleTheme = themeStore.toggleTheme;
+
+const handleLogout = () => {
+  authStore.logout();
+  router.push('/login');
+};
 </script>
 
 <style scoped>
 .header {
-  height: 150px;
-  background-color: var(--header-bg);
-  font-size: 32px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 40px;
+  padding: 16px;
+  background-color: var(--header-bg);
   color: white;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .nav {
   display: flex;
-  gap: 20px;
-  font-size: 18px;
+  gap: 12px;
+  align-items: center;
 }
 
-.router-link-active,
-.active-link {
-  font-weight: bold;
-  text-decoration: underline;
-}
-
-.theme-toggle {
-  background: rgba(255, 255, 255, 0.2);
-  border: none;
+a {
   color: white;
-  padding: 8px 16px;
-  border-radius: 20px;
-  cursor: pointer;
-  font-size: 16px;
-  transition: all 0.3s ease;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 6px 12px;
+  border-radius: 4px;
+  transition: background-color 0.3s;
 }
 
-.theme-toggle:hover {
-  background: rgba(255, 255, 255, 0.3);
+a:hover {
+  background-color: rgba(255, 255, 255, 0.2);
+}
+
+.btn {
+  padding: 6px 12px;
+  border: none;
+  background-color: #ffffff20;
+  color: white;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.btn:hover {
+  background-color: white;
+  color: #333;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+
+.logout {
+  background-color: #ff4d4d;
+}
+
+.logout:hover {
+  background-color: white;
+  color: #ff4d4d;
+  box-shadow: 0 0 6px rgba(255, 77, 77, 0.5);
 }
 </style>

@@ -10,11 +10,16 @@
 
 <script setup lang="ts">
 import { ref, computed } from 'vue';
+import { useUserStore } from '@/stores/useUserStore';
 import UserItem from './UserItem.vue';
-import { mockUsers } from '@/mock/mock-users';
 
 const showAll = ref(false);
-const displayedUsers = computed(() => (showAll.value ? mockUsers : mockUsers.slice(0, 10)));
+const userStore = useUserStore();
+
+const displayedUsers = computed(() =>
+  showAll.value ? userStore.users : userStore.users.slice(0, 10),
+);
+
 function toggleShowAll() {
   showAll.value = !showAll.value;
 }

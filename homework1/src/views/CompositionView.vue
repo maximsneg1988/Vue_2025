@@ -10,9 +10,20 @@
 </template>
 
 <script setup lang="ts">
+import { onMounted } from 'vue';
 import UserList from '@/components/UserList.vue';
 import PostList from '@/components/PostList.vue';
 import UserForm from '@/components/UserForm.vue';
+
+import { useUserStore } from '@/stores/useUserStore';
+
+const userStore = useUserStore();
+
+onMounted(() => {
+  if (userStore.users.length === 0) {
+    userStore.fetchUsers();
+  }
+});
 </script>
 
 <style lang="scss">

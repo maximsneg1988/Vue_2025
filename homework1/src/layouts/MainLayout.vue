@@ -15,9 +15,13 @@
 import PageHeader from '@/components/PageHeader.vue';
 import PageAside from '@/components/PageAside.vue';
 import PageFooter from '@/components/PageFooter.vue';
-import { useTheme } from '@/composables/useTheme';
 
-const { isDarkTheme, toggleTheme, themeClass } = useTheme();
+import { storeToRefs } from 'pinia';
+import { useThemeStore } from '@/stores/useThemeStore';
+
+const themeStore = useThemeStore();
+const { isDarkTheme, themeClass } = storeToRefs(themeStore);
+const { toggleTheme } = themeStore;
 </script>
 
 <style>
