@@ -3,9 +3,15 @@
     <h1>Моё приложение</h1>
 
     <nav class="nav">
-      <router-link v-if="authStore.isAuthenticated" to="/composition">Composition</router-link>
-      <router-link v-if="authStore.isAuthenticated" to="/options">Options</router-link>
-      <router-link v-if="!authStore.isAuthenticated" to="/login">Login</router-link>
+      <router-link v-if="authStore.isAuthenticated" to="/composition" active-class="active"
+        >Composition</router-link
+      >
+      <router-link v-if="authStore.isAuthenticated" to="/options" active-class="active"
+        >Options</router-link
+      >
+      <router-link v-if="!authStore.isAuthenticated" to="/login" active-class="active"
+        >Login</router-link
+      >
 
       <button @click="toggleTheme" class="btn">
         {{ isDarkTheme ? '🌞 Светлая тема' : '🌙 Тёмная тема' }}
@@ -65,6 +71,12 @@ a {
 
 a:hover {
   background-color: rgba(255, 255, 255, 0.2);
+}
+
+a.active {
+  background-color: #1f64ff;
+  color: white;
+  box-shadow: 0 0 8px rgba(31, 100, 255, 0.7);
 }
 
 .btn {
