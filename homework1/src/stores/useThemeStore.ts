@@ -3,7 +3,8 @@ import { defineStore } from 'pinia';
 import { ref, computed, watch } from 'vue';
 
 export const useThemeStore = defineStore('theme', () => {
-  const isDarkTheme = ref(false);
+  // читаем из localStorage при инициализации
+  const isDarkTheme = ref(localStorage.getItem('theme') === 'dark');
 
   const toggleTheme = () => {
     isDarkTheme.value = !isDarkTheme.value;
@@ -15,6 +16,7 @@ export const useThemeStore = defineStore('theme', () => {
     isDarkTheme,
     (value) => {
       document.body.classList.toggle('dark-theme', value);
+      localStorage.setItem('theme', value ? 'dark' : 'light'); // сохраняем в localStorage
     },
     { immediate: true },
   );
